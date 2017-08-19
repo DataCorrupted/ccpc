@@ -1,0 +1,1045 @@
+﻿
+01±³°ü£º
+{
+v c[i] w[i]
+¶þÎ¬:
+
+f[i,j]=½«Ç°i¸öÎïÆ·Ç¡·ÅÓÚÈÝÁ¿ÎªvµÄ±³°üÖÐµÄ×î´ó¼ÛÖµ
+                  ~~~~~~
+²»Ñ¡µÚi¸öÎïÆ· f[i,j]:=f[i-1,j];
+  Ñ¡µÚi¸öÎïÆ· f[i,j]:=f[i-1,j-c[i]]+w[i];
+f[i,j]:=max{f[i-1,j],
+            f[i-1,j-c[i]]+w[i]}
+
+
+Ò»Î¬:
+
+f[v]=Ç¡·ÅÓÚÈÝÁ¿ÎªvµÄ±³°üÖÐµÄ×î´ó¼ÛÖµ
+f[v]:=max{f[v],f[v-c[i]]+w[i]}
+
+for i:=1 to n do
+    for j:=v downto 0 do
+        f[j]:=max{f[j],f[j-c[i]]+w[i]}
+
+or
+
+for i:=1 to n do
+    for j:=v downto 0 do
+        f[i,j]:=max{f[i-1,j],f[i-1,j-c[i]]+w[i]}
+
+¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+misunderstanding:
+×¢Òâf[i][v]ÓÐÒâÒåµ±ÇÒ½öµ±´æÔÚÒ»¸öÇ°i¼þÎïÆ·µÄ×Ó¼¯£¬
+Æä·ÑÓÃ×ÜºÍÎªv¡£ËùÒÔ°´ÕÕÕâ¸ö·½³ÌµÝÍÆÍê±Ïºó£¬
+×îÖÕµÄ´ð°¸²¢²»Ò»¶¨ÊÇf[N] [V]£¬
+¶øÊÇf[N][0..V]µÄ×î´óÖµ¡£
+Èç¹û½«×´Ì¬µÄ¶¨ÒåÖÐµÄ¡°Ç¡¡±×ÖÈ¥µô£¬
+ÔÚ×ªÒÆ·½³ÌÖÐ¾ÍÒªÔÙ¼ÓÈëÒ»Ïîf[i][v-1]£¬
+ÕâÑù¾Í¿ÉÒÔ±£Ö¤f[N] [V]¾ÍÊÇ×îºóµÄ´ð°¸¡£
+¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+}
+
+
+ÍêÈ«±³°ü
+{
+
+ÓÐnÖÖÎïÆ·ºÍÒ»¸öÈÝÁ¿ÎªvµÄ±³°ü
+µÚi¼þÎïÆ·µÄ·ÑÓÃÎªc[i]
+           ¼ÛÖµÎªw[i]
+Ã¿¼þ¿ÉÈ¡ÎÞÊý¼þ
+
+f[i,j]=½«Ç°i¸öÎïÆ·Ç¡·ÅÓÚÈÝÁ¿ÎªvµÄ±³°üÖÐµÄ×î´ó¼ÛÖµ
+                  ~~~~~~           
+f[i,j]:=max{f[i-1,j-k*c[i]]+k*w[i]  | 0<=k*c[i]<=v}
+
+ÓÅ»¯£º
+1£ºÈç¹ûÎïÆ·iÓëÎïÆ·j c[i]<c[j] and w[i]>w[j],¾Í°ÑjÈ¥µô
+2£º×ª»¯Îª01±³°ü
+   ÓÉÓÚµÚi¼þÎïÆ·×î¶àÑ¡v/c[i]¼þ£¬ÄÇ¾Í°ÑµÚi¼þÎïÆ·×ª»¯Îª
+   (v/c[i])¼þiÎïÆ·
+   »ù±¾Ë¼Â·£º½«Ò»ÖÖÎïÆ·²ð³É¶àÖÖÎïÆ·
+
+O(n*v)
+for i:=1 to n do
+    for j:=0 to v do
+        f[i,j]:=max{f[i-1,j],f[i-1,j-c[i]]+w[i]}
+
+or
+
+for i:=1 to n do
+    for j:=0 to v do
+        f[j]:=max{f[j],f[j-c[i]]+w[i]}
+
+misunderstanding:
+O(n*v)µÄËã·¨Ô­ÀíÃ»¸ã¶®
+
+}
+
+
+¶àÖØ±³°ü
+{
+
+ÓÐnÖÐÎïÆ·ºÍÒ»¸öÈÝÁ¿ÎªvµÄ±³°ü£¬
+µÚiÖÖÎïÆ··ÑÓÃÎªc[i]
+         ¼ÛÖµÎªw[i]
+         ×î¶àÑ¡n[i]¼þ
+
+µÚÒ»¸öË¼Â·£º
+¶ÔÓÚµÚi¸öÎïÆ·ÓÐ£¨n[i]+1£©¸ö¾ö²ß
+    ......²»Ñ¡¡¢Ñ¡Ò»¼þ¡¢Ñ¡Á½¼þ¡¢... ¡¢Ñ¡n[i]¼þ
+so,¿ÉµÃ×ªÒÆ·½³Ì
+    f[i,j]:=max{f[i-1,j-k*c[i]]+w[i]*k | 0<=k<=n[i]}
+    ¸´ÔÓ¶È O(v*siga(n[i]))
+
+¼òµ¥µÄµÚ¶þ¸öË¼Â·
+×ª»¯Îª01±³°ü¡£°ÑµÚi¸öÎïÆ·×ª»¯Îªn[i] ¼þiÎïÆ·
+È»ºó¾ÍÊÇÒ»¸ö01±³°ü
+
+misunderstand:
+¹ØÓÚ¶þ½øÖÆÒÔ¼°µ¥µ÷¶ÓÁÐµÄ¶«Î÷
+
+}
+
+
+
+»ìºÏ±³°ü
+{
+½«ÒÔÉÏÈýÖÖ±³°ü»ìºÏ£¬ÓÐµÄÎïÆ·Ö»ÄÜÈ¡Ò»ÖÖ£¬
+ÓÐµÄÎïÆ·¿ÉÈ¡ÎÞÏÞ´Î£¬ÓÐµÄ¿ÉÈ¡´ÎÊýÓÉÒ»¸öÉÏÏÞ
+
+
+¸Ð¾õºÃÏñ²»ËãÌ«ÄÑ
+
+for i:=1 to n do
+    begin Èç¹ûÊÇ01±³°ü
+              for j:=v downto 0 do
+                  f[i,j]:=max{f[i-1,j],f[i-1,j-c[i]]+w[i]};
+          Èç¹ûÊÇÍêÈ«±³°ü
+              for j:=0 to v do
+                  f[i,j]:=max{f[i-1,j],f[i-1,j-c[i]]+w[i]};
+          Èç¹ûÊÇ¶àÖØ±³°ü
+              for j:=v downto 0 do
+                  begin for k:=0 to v/c[i] do
+                            if f[i,j]<f[i-1,j-k*c[i]]+(w[i]*k)
+                               then f[i,j]:=f[i-1,j-k*c[i]]+(w[i]*k)
+                  end;
+    end;
+}
+
+
+
+¶þÎ¬·ÑÓÃµÄ±³°ü
+{
+ÎÊÌâ:¶ÔÓÚÃ¿ÖÖÎïÆ·£¬ÓÐÁ½¸ö´ú¼Û£¬
+     Èç¹ûÑ¡ÔñÕâÖÖÎïÆ·£¬¾ÍÒªÖ§¸¶ÕâÁ½ÖÖ´ú¼Û
+
+a[i],b[i] ´ú¼Û
+v[i]      ÀûÒæ
+f[i,j,k] Ç°i¼þÎïÆ·Ö§¸¶j,kµÄ´ú¼ÛÖ®ºóµÃµ½µÄ×î´óÀûÒæ
+
+f[i,j,k]:=max{f[i-1,j,k],
+              f[i-1,j-a[i],k-a[i]]+v[i]}
+
+for i:=1 to n do
+    for j:=v downto 0 do
+        f[i,j,k]:=max{f[i-1,j,k],
+                      f[i-1,j-a[i],k-a[i]]+v[i]}
+
+³£ÒÔÒþº¬Ìõ¼þ³öÌâ
+
+01±³°üÖÐÏÞÖÆÑ¡È¡ÊýÁ¿
+    //Ã¿¸öÎïÆ·µÄb[i]=1//
+
+}
+
+**
+·Ö×é±³°ü
+{
+ÓÐn¼þÎïÆ·£¬ºÍÒ»¸öÈÝÁ¿ÎªvµÄ±³°ü
+»®·ÖÎªk×é£¬Ã¿×éµÄÎïÆ·»¥Ïà³åÍ»{Ö»Ñ¡Ò»¼þ}
+
+f[i,j]{Ç°i×éÎïÆ·»¨·Ñ´ú¼ÛÎªjËù»ñµÃµÄ×î´óÀûÒæ}
+
+f[i,j]:=max{f[i-1,j],f[i-1,j-v[i][k]]  |  0<=k<=µÚi×éÎïÆ·µÄÊýÁ¿ }
+
+f[j]:=max{f[j],f[j-v[i][k]  |  0<=k<=µÚi×éÎïÆ·µÄÊýÁ¿ }
+
+for i:=1 to n do
+    for j:=v downto 0 do
+        for k:=1 to µÚi×éÎïÆ·µÄÊýÁ¿
+              
+}
+
+***
+ÓÐÒÀÀµµÄ±³°ü
+{
+ÌâÒâ£º
+ÎïÆ·¼ä´æÔÚÒÀÀµ¹ØÏµ
+¼ò»¯£º
+   1¡¢²»´æÔÚÒ»¼þÎïÆ·ÒÀÀµ¶à¼þÎïÆ·
+   2¡¢²»´æÔÚÒ»¼þÎïÆ·¼°ÒÀÀµÆäËûÎïÆ·£¬ÓÐ±»±ðµÄÎïÆ·ËøÒÀÀµ
+½«²»±»ÆäËûÎïÆ·ËùÒÀÀµµÄÎïÆ·½Ð  Ö÷¼þ
+            ÒÀÀµÆäËûÎïÆ·µÄ½Ð  ¸½¼þ
+
+ËùÓÐÎïÆ·ÓÉ{ÓÐÒ»¸öÖ÷¼þºÍ¶à¸ö¸½¼þ}¼¯ºÏ×é³É
+
+¼ÙÉèÓÐn¸ö¼¯ºÏ {ÓÐc[i]¸ö¸½¼þ}
+    Ñ¡Ôñ·½°¸£º1¡¢²»Ñ¡Ö÷¼þ
+              2¡¢Ö»Ñ¡Ö÷¼þ
+              3¡¢Ñ¡Ö÷¼þºÍÒ»¸ö¸½¼þ  {c[i]ÖÖ}
+              4¡¢Ñ¡Ö÷¼þºÍÁ½¸ö¸½¼þ  {}
+              5¡¢Ñ¡Ö÷¼þºÍÈý¸ö¸½¼þ  {}
+              .
+              .
+              .
+              .
+              .
+              c[i]+2¡¢ Ñ¡Ö÷¼þºÍc[i]¸ö¸½¼þ {1ÖÖ}
+    ×ÜÊýÊÇ2^c[i]+1
+    
+½«Ò»¼þÎïÆ·À©Õ¹Îª2^c[i]+1¼þ
+
+Ò»¸ö¼òµ¥µÄÓÅ»¯£º¶ÔÓÚÒ»¸ö¼¯ºÏÖÐ´ú¼ÛÏàÍ¬µÄ×éºÏ£¬Ö»±£ÁôÒ»¸öÀûÒæ×î´óµÄ
+
+}
+
+***
+·º»¯±³°ü
+{
+ÌâÒâ£º
+ÔÚÒ»¸ö±³°üÈÝÁ¿ÎªvµÄ±³°üÎÊÌâÖÐ£¬·º»¯ÎïÆ·µÄvºÍwÓÐÒ»¸öÑÏ¸ñµÄ¹ØÏµ
+µ±·ÖÅä¸øËûµÄ·ÑÓÃÎªw[i]Ê±£¬ÀûÒæÎªv[i]
+
+¸Ð¾õËüµÄÒâË¼ÊÇÃ¿Ò»ÖÖ±³°üÎÊÌâ¶¼¿ÉÒÔ¿´×÷ÊÇÒ»ÖÖ·º»¯±³°ü
+01±³°ü£¬µ±´ú¼ÛÊÇw[i]Ê±£¬ÀûÒæÊÇv[i]; ÆäÓàµÄÊ±ºòv[i]=0
+ÍêÈ«±³°ü£¬µ±´ú¼Ûw=w[i]*k{0<=k<=V/w[i]} ÀûÒæÊÇv[i]*k;
+          ÆäÓàµÄÊ±ºòv[i]=0;
+¶àÖØ±³°ü£¬µ±´ú¼Ûw=w[i]*k{0<=k<=n[i]} ÀûÒæÊÇv[i]*k
+          ÆäÓàµÄÊ±ºòv[i]=0;
+
+µ±Ö»ÓÐÁ½¼þ·º»¯ÎïÆ·Ê±  q,p
+       f[i]=q[i]+p[v-i];
+       ×î´óÀûÒæÊÇ max{f[i]} {0<=i<=v}
+
+}
+
+
+2274
+{
+Ñ¡ÔñµÚk´óµÄ·½°¸£¬¹²ÓÐtÀàÈË£»
+y£º   Äê·Ý
+r£º   ÒªÇóÊýÄ¿
+m1/d1 m2/d2  id
+
+ÔÚËùÓÐµÄ·½°¸ÖÐÑ¡ÔñÀûÈóµÚk´óµÄ·½°¸£¬Êä³öÀûÈó
+
+1<=k,t<=100
+0<=r<=20000
+1<=pi<=32767
+
+µ±k=1Ê± °ÑÃ¿Ò»¸öÔ¤Ô¼¿´ÎªÊÇÒ»¸öÊýÖáÉÏµÄÓÐÈ¨Ïß¶Î
+   f[i]±íÊ¾ÎªÇ°iÌìËù»ñµÃµÄ×î´óÀûÈó
+
+}
+
+{
+Ç°Ðò±éÀúÊ×ÏÈ·ÃÎÊ¸ù½áµãÈ»ºó±éÀú×ó×ÓÊ÷£¬×îºó±éÀúÓÒ×ÓÊ÷¡£
+ÔÚ±éÀú×ó¡¢ÓÒ×ÓÊ÷Ê±£¬ÈÔÈ»ÏÈ·ÃÎÊ¸ù½áµã£¬È»ºó±éÀú×ó×ÓÊ÷£¬×îºó±éÀúÓÒ×ÓÊ÷¡£
+ÖÐ×óÓÒ
+ÖÐÐò±éÀúÊ×ÏÈ±éÀú×ó×ÓÊ÷£¬È»ºó·ÃÎÊ¸ù½áµã£¬×îºó±éÀúÓÒ×ÓÊ÷¡£
+ÔÚ±éÀú×ó¡¢ÓÒ×ÓÊ÷Ê±£¬ÈÔÈ»ÏÈ±éÀú×ó×ÓÊ÷£¬ÔÙ·ÃÎÊ¸ù½áµã£¬×îºó±éÀúÓÒ×ÓÊ÷¡£
+×óÖÐÓÒ
+ºóÐò±éÀúÊ×ÏÈ±éÀú×ó×ÓÊ÷È»ºó±éÀúÓÒ×ÓÊ÷£¬×îºó·ÃÎÊ¸ù½áµã¡£
+ÔÚ±éÀú×ó¡¢ÓÒ×ÓÊ÷Ê±£¬ÈÔÈ»ÏÈ±éÀú×ó×ÓÊ÷£¬È»ºó±éÀúÓÒ×ÓÊ÷£¬×îºó±éÀú¸ù½áµã¡£
+×óÓÒÖÐ
+
+ÒÔiÎª¸ù£¬1~i-1Îª×ó×ÓÊ÷£¬i+1~nÎªÓÒ×ÓÊ÷
+f[i,j]:={-1   i>j
+         d[i] i=j
+         max{f[i,k-1]*f[k+1,j]}+d[k]   i<j
+         }
+
+}
+
+{
+for i:=1 to n do
+    for j:=i to n do
+        if j-i+1>max and choose(i,j)  
+           then max:=j-i+1;
+
+f[i]: Ç°i¸öºËÜÕËáµÄÌØÊâÐòÁÐ
+}
+
+
+dijkstra
+{
+var n,m,s,t,i,j,x,y,w,l,min,p,tt:longint;
+    head,d:array[1..1000]of longint;
+    open:array[1..1000]of boolean;
+    edge:array[1..100000,1..3]of longint;
+
+begin read(n,m);// n£ºµãÊý£»  m£º±ßÊý
+      read(s,t);// s£ºÆðµã£»  t£ºÖÕµã
+      for i:=1 to n do
+          head[i]:=-1;
+      for i:=1 to m do//¶ÁÈë±ß{ÓÐÏòÍ¼}
+          begin read(x,y,w);//Æðµã£¬ÖÕµã£¬È¨Öµ
+                edge[i,1]:=y;
+                edge[i,2]:=head[x];
+                edge[i,3]:=w;
+                head[x]:=i;
+          end;
+      for i:=1 to n do
+          d[i]:=maxlongint;
+      d[s]:=0;
+      fillchar(open,sizeof(open),false);
+      open[s]:=true;
+      for i:=1 to n do
+          begin min:=maxlongint;
+                for j:=1 to n do
+                    if open[j]
+                       then if d[j]<min
+                               then begin min:=d[j];
+                                          tt:=j;
+                                    end;
+                 p:=head[tt];
+                 open[tt]:=false;
+                 while p<>-1 do
+                       begin if min+edge[p,3]<d[edge[p,1]]
+                                then begin d[edge[p,1]]:=min+edge[p,3];
+                                           open[edge[p,1]]:=true;
+                                     end;
+                              p:=edge[p,2];
+                       end;
+                 for j:=1 to n do
+                     write(d[j],' ');
+                 writeln;
+      end;
+      for i:=1 to n do
+          write(head[i],' ');
+      writeln;
+      for i:=1 to n do
+          write(d[i],' ');
+end.
+}
+
+
+prim
+{
+var map:array[1..1000,1..10000]of longint;
+    cost:array[1..10000]of longint;
+    visit:array[1..1000]of boolean;
+    i,j,n,m,x,y,v:longint;
+
+function prim:longint;
+         var i,j,min,mini,ans:longint;
+         begin ans:=0;
+               for i:=1 to n do
+                   begin visit[i]:=false;
+                         cost[i]:=maxlongint;
+                   end;
+               for i:=2 to n do
+                   if map[1,i]<>0
+                      then cost[i]:=map[1,i];
+               visit[1]:=true;
+               for i:=1 to n-1 do
+                   begin min:=maxlongint;
+                         for j:=1 to n do
+                             if (not visit[j])and
+                                (cost[j]<min)
+                                then begin min:=cost[j];
+                                           mini:=j;
+                                     end;
+                         visit[mini]:=true;
+                         inc(ans,min);
+                         for j:=1 to n do
+                             if (not visit[j])and
+                                (map[mini,j]>0)and
+                                (map[mini,j]<cost[j])
+                                then cost[j]:=map[mini,j];
+                   end;
+               exit(ans);
+         end;
+
+begin readln(n,m);
+      fillchar(map,sizeof(map),0);
+      for i:=1 to m do
+          begin readln(x,y,v);
+                if (map[x,y]=0)or(map[x,y]>v)
+                   then begin map[x,y]:=v;
+                              map[y,x]:=v;
+                        end;
+          end;
+      writeln(prim);
+end.
+}
+
+kruskal
+{
+type rqmap=record
+           s,t,v:longint;
+           end;
+
+var map:array[1..100000]of rqmap;
+    father:array[1..10000]of longint;
+    n,m,i,ingraph,ans:longint;
+
+procedure qsort(l,r:longint);
+          var i,j,x:longint;
+              t:rqmap;
+          begin i:=l; j:=r;
+                x:=map[(i+j) div 2].v;
+                while i<=j do
+                      begin while map[i].v<x do inc(i);
+                            while x<map[j].v do dec(j);
+                            if (i<=j)
+                               then begin t:=map[i];
+                                          map[i]:=map[j];
+                                          map[j]:=t;
+                                          inc(i);
+                                          dec(j);
+                                    end;
+                      end;
+                if (i<r) then qsort(i,r);
+                if (l<j) then qsort(l,j);
+          end;
+
+
+function find(x:Longint):Longint;
+         begin if father[x]=x then exit(x);
+               exit(find(father[x]));
+         end;
+
+procedure union(a,b:longint);
+          begin father[find(b)]:=find(father[a]);
+          end;
+
+begin readln(n,m);
+      for i:=1 to n do
+          father[i]:=i;
+      for i:=1 to m do
+          readln(map[i].s,map[i].t,map[i].v);
+      qsort(1,m);
+      ans:=0;
+      ingraph:=1;
+      i:=0;
+      while (ingraph<=n-1) do
+            begin inc(i);
+                  if find(map[i].s)<>find(map[i].t)
+                     then begin inc(ingraph);
+                                inc(ans,map[i].v);
+                                union(map[i].s,map[i].t);
+                          end;
+            end;
+      writeln(ans);
+end.
+}
+
+
+floyed
+{
+var cost,a:array[1..1000,1..1000]of longint;
+    p:array[1..1000,1..1000]of 0..1000;
+    i,j,k:longint;
+    n,x,y:longint;
+
+procedure path(x,y:longint);
+          var i,j,k:longint;
+          begin k:=p[x,y];
+                if k<>0
+                   then begin path(x,k);
+                              write(k,'-->');
+                              path(k,y);
+                        end;
+          end;
+
+begin readln(n,x,y);
+      for i:=1 to n do
+          for j:=1 to n do
+              begin read(cost[i,j]);
+                    if cost[i,j]=0
+                       then begin cost[i,j]:=maxint;
+                                  p[i,j]:=0;
+                            end;
+                    a[i,j]:=cost[i,j];
+              end;
+      for k:=1 to n do
+          for i:=1 to n do
+              for j:=1 to n do
+                  begin if (a[i,k]+a[k,j]<a[i,j])
+                           then begin p[i,j]:=k;
+                                      a[i,j]:=a[i,k]+a[k,j];
+                                end;
+                  end;
+      writeln(a[x,y]);
+      write(x,'-->');
+      path(x,y);
+      write(y);
+end.
+}
+
+dijkstra
+{
+var mark:array[1..1000]of boolean;
+    a:array[1..1000]of longint;
+    cost:array[1..1000,1..1000]of longint;
+    n,m,i,j,k,x,y:longint;
+
+procedure dijkstra;
+          var i,j,k:longint;
+              min,minj:longint;
+          begin fillchar(mark,sizeof(mark),false);
+                for i:=1 to n do
+                    a[i]:=cost[x,i];
+                a[x]:=0;
+                for j:=1 to n-1 do
+                    begin min:=maxlongint;
+                          for i:=1 to n do
+                              if (not mark[i]) and(a[i]<min)
+                                 then begin min:=a[i];
+                                            minj:=i;
+                                      end;
+                          mark[minj]:=true;
+                          for i:=1 to n do
+                              if (not mark[i]) and (cost[minj,i]>0)
+                                 then begin if a[minj]+cost[minj,i]<a[i]
+                                               then a[i]:=a[minj]+cost[minj,i];
+                                      end;
+                    end;
+          end;
+
+begin readln(n,x,y);
+      for i:=1 to n do
+          for j:=1 to n do
+              read(cost[i,j]);
+      dijkstra;
+      writeln(a[y]);
+end.
+}
+
+
+
+¼Æ»®£º2.SPFA  
+      4.Ç¿Á¬Í¨·ÖÁ¿
+
+¹é²¢ÅÅÐò//¿ìËÙÅÅÐò
+{
+var a,r:array[1..10000]of longint;
+    i,j,k:longint;
+    n:longint;
+
+procedure msort(s,t:longint);
+          var i,j,k,m:longint;
+          begin if s=t then exit;
+                m:=(s+t) div 2;
+                msort(s,m);
+                msort(m+1,t);
+                i:=s; j:=m+1; k:=s;
+                while (i<=m)and(j<=t) do
+                      begin if a[i]<a[j]
+                               then begin r[k]:=a[i];
+                                          inc(i);
+                                          inc(k);
+                                    end
+                               else begin r[k]:=a[j];
+                                          inc(j);
+                                          inc(k);
+                                    end;
+                      end;
+                while i<=m do
+                      begin r[k]:=a[i];
+                            inc(i);
+                            inc(k);
+                      end;
+                while j<=t do
+                      begin r[k]:=a[j];
+                            inc(j);
+                            inc(k);
+                      end;
+                for i:=s to t do
+                    a[i]:=r[i];
+          end;
+
+procedure qsort(s,t:longint);
+          var i,j,k,temp:longint;
+          begin k:=a[(s+t) div 2];
+                i:=s; j:=t;
+                while i<=j do
+                      begin while a[i]<k do inc(i);
+                            while k<a[j] do dec(j);
+                            if i<=j
+                               then begin temp:=a[i];
+                                          a[i]:=a[j];
+                                          a[j]:=temp;
+                                          inc(i);
+                                          dec(j);
+                                    end;
+                      end;
+                if i<t then qsort(i,t);
+                if s<j then qsort(s,j);
+          end;
+
+begin readln(n);
+      for i:=1 to n do
+          read(a[i]);
+      qsort(1,n); //or  msort(1,n);
+      for i:=1 to n do
+          write(a[i],' ');
+end.
+}
+
+tree
+{
+type node=record
+          data:char;
+          lch,rch:0..100;
+          end;
+
+var trrr:array[1..1000]of node;
+'------------------------------------------------------------'
+type node=record
+          left:integer;
+          right:integer;
+          name:char;
+          end;
+var l,i,h,a:longint;
+    s:string;
+    t:array[1..100]of node;
+
+procedure front(i:longint);
+          begin if t[i].name<>'#'
+                   then begin write(t[i].name);
+                              if t[i].left<>0
+                                 then front(t[i].left);
+                              if t[i].right<>0
+                                 then front(t[i].right);
+                        end;
+          end;
+'------------------------------------------------------------'
+
+procedure mid(i:longint);
+          begin if t[i].name<>'#'
+                   then begin if t[i].left<>0
+                                 then mid(t[i].lft);
+                              write(t[i].name);
+                              if t[i].right<>0
+                                 then mid(t[i].right);
+                        end;
+          end;
+'------------------------------------------------------------'
+
+procedure back(i:longint);
+          begin if t[i].name<>'#'
+                   then begin if t[i].left<>0
+                                 then back(t[i].left);
+                              if t[i].right<>0
+                                 then back(t[i].right);
+                              write(t[i].name);
+                        end;
+          end;
+'-----------------------------------------------------------'
+}
+
+ÍØÆËÅÅÐò
+{
+var into:array[1..10001]of longint;
+    map:array[1..10001,1..10001]of 0..1;
+    i,j,k,n,m:longint;
+    used:array[1..10001]of boolean;
+    judge:boolean;
+    
+begin fillchar(into,sizeof(into),0);
+      fillchar(map,sizeof(map),0);
+      fillchar(used,sizeof(used),true);
+      readln(n,m);
+      for i:=1 to m do
+          begin read(j,k);
+                map[j,k]:=1;
+                inc(into[k]);
+          end;
+      for i:=1 to n do
+          begin judge:=false;
+                j:=1;
+                while (j<=n)and(into[j]<>0) do
+                      inc(j);
+                if into[j]=0
+                   then begin used[j]:=false;
+                              into[j]:=maxlongint;
+                              for k:=1 to n do
+                                  if map[j,k]=1
+                                     then dec(into[k]);
+                        end;
+          end;
+end.
+}
+
+{
+eg :1 1-----------4
+    2 2-----------76
+n*mÍø¸ñ
+µã  (n+1)*(m+1)
+n:=n+1;
+m:=m+1;
+µÚÒ»¸öµã£ºn*m
+µÚ¶þ¸öµã£º¢ÙÓëµÚÒ»µãÍ¬Ò»Ö±Ïß
+            ¢ÙÍ¬Ò»ºáÏßn-1
+              µÚÈýµã£º(m-1)*n
+            ¢ÚÍ¬Ò»ÊúÏßm-1
+              µÚÈýµã£º(n-1)*m
+          ¢Ú
+
+
+C(n*m,3)-m*C(n,3)-n*C(m,3)
+
+}
+
+
+
+{
+f[i,j]:=max((f[i+1,j]+init[i,j])mod 100,(f[i+1,j+1]+init[i,j]) mod 100)
+  1
+ 1 99
+1 1 99
+1 1 99
+ 2 98
+  99
+f[i,j,k]ÄÜ·ñÔÚ(i,j)È¡µ½kÖµ
+}
+
+{
+f[i][j]´ú±íj¸ö³ËºÅ,Ç°iÎ»ÊýµÄ×î´óÖµ
+×ªÒÆ·½³ÌÊ½: f[i][j]=max{f[k][j-1]+num[k+1][i]}(1<=k<i)
+num[i][j]´ú±íµÚiÎ»Êýµ½µÚjÎ»Êý×é³ÉµÄÊý×ÖÊÇ¶àÉÙ
+
+f[i,j]:=max{f[k,j-1]*num[k+1,i]}   (1<=k<i)
+
+
+1231 4 2
+12*31--------------|
+~~                 |
+123*1              |
+~~~                |
+          12-------|
+          1*2
+123
+1*23 
+12*3
+
+°ËÎ»Êý 3³Ë
+¢ñ¢ò¢ó¢ô¢õ¢ö¢÷¢ø
+123456*7*8
+~~~~~~
+12345*6*78
+~~~~~
+12345*67*8
+~~~~~
+1234*5*678
+~~~~
+1234*56*78
+~~~~
+}
+
+{
+7 div 3=2
+1 to 2 
+1: 6 div 2=3
+   1 to 3
+   1 5
+   2 4
+   3 3
+2:5 div 2=2
+  2 3
+
+1 to 5
+1:  1 to 6
+    1:1 to 9
+      1 17
+      2 16
+      3 15
+      4 14
+      5 13
+      6 12
+      7 11
+      8 10
+      9 9
+    2:2 to 8
+      2 15
+      3 14
+      4 13
+      5 12
+      6 11
+      7 10
+      8 9
+    3:
+f[i,j]=
+1,f[i-1,j-1]  +
+
+}
+
+{
+f[i,j]  j:=01000
+
+}
+
+
+x4-x3=x2-x1
+x4=x2-x1+x3;
+x4-x2=x1-x3;
+x4=x2+x1-x3;
+x4-x3=x1-x2;
+x4=x1+x3-x2;
+
+A B
+a=A / 10^9
+b=B / 10^9
+x0=1
+
+if a<0
+   then no
+
+if 0<a<1
+   then {if b<=0
+            then no
+         if b>0
+            then no}
+
+if a>1
+   then begin if b>0 
+                 then yes
+              if b=0
+                 then yes
+              if b<0
+                 then {x1=a+b
+                       x1>0
+                         then yes
+                         else no}
+        end;
+
+{            
+xn=a*x(n-1)+b
+a>1          
+a=2          
+b=-1         
+xn=2*x(n-1)-1
+yes          
+b=-2         
+no           
+}            
+
+funxtion num1(x:longint):longint;           
+         var ans:longint;                   
+         begin ans:=0;                      
+               while x>0 do                 
+                     begin inc(ans);        
+                           dec(x,x and(-x));
+                     end;                   
+               exit(ans);                   
+         end;                               
+
+
+
+{
+1427 
+a1,a2,a3,a4,....,an
+¸ÐÎò£º±»ÃÉÁË¡£¡£¡£¡£
+}
+
+
+{
+1416
+ABCDEFGHIJKLMNOPQRSTUVWXY
+
+ABCDE
+FGHIJ
+KLMNO
+PQRST
+UVWXY
+
+ABCDEFGHIJKLMNOPQRSUTVWXY
+
+ABCDE
+FGHIJ
+KLMNO
+PQRSU
+TVWXY
+
+ABCDE
+FGHIJ
+KLMNO
+PQRST
+UVWXY
+
+}
+
+{
+w[i]
+w[1] w[2] w[3] ....w[n]
+
+4 1 1 4
+4 2 4------------2
+6 4--------------6
+10---------------10
+                 18
+4 1 1 4
+5 5--------------10
+10---------------10
+                 20
+
+f[1,n]=min(f[2,n]*2+w[1],f[1,n-1]*2+w[n])
+f[2,3]=w[2]+w[3];
+f[2,4]=min(f[2,3]*2+w[4],f[3,4]*2+w[2])
+
+f[i,j]=min(f[i,j-1]*2+w[j],f[i+1,j]*2+w[i])
+
+4 1 1 4
+f[1,2]:=5;
+f[2,3]:=2;
+f[3,4]:=5;
+f[1,3]:=f[1,2]*2+w[3]/f[2,3]*2+w[1]
+       =5*2+1/2*2+4
+       =11/8
+       =8
+f[2,4]:=8;
+f[1,4]:=f[1,3]*2+w[4]
+        f[2,4]*2+w[1]
+       =16+4/16+4
+       =20
+
+1 2 3
+---
+ 3  3
+ ----
+   6=9
+
+f[i,j]=min(f[i+1,j]+w[i],f[i,j-1]+w[j])
+
+f[i,j]=min(f[i,j-1]+w[j],f[i+1,j]+w[i])+sum[i,j];
+
+f[i,j]=min(f[i+1,j],f[i,j-1])+sum[i,j];
+
+f[1,2]:=5; f[2.3]:=2; f[3,4]:=5;
+f[1,3]:=11; f[2,4]:=11
+f[1,4]:=21
+
+f[i,j]:=min(f[i,k]+f[k+1,j])+sum[i,j];
+f[1,2]:=5; f[2,3]:=2; f[3,4]:=5;
+f[1,3]:=7+6=13;
+f[2,4]:=13;
+f[1,4]:=13+4+10=27
+
+F[I,J]:=MIN(F[I,K]+F[K,J])
+F[1,1]:=4; F[2,2]:=1; F[3,3]:=1; F[4,4]:=4;
+F[1,4]:=MIN{F[1,3]+F[4,4],F[1,2]+F[3,4],F[1,1]+F[2,4]}
+F[1,3]:=MIN{F[1,2]+F[3,3],F[1,1]+F[2,3]}
+F[2,4]:=MIN{F[2,3]+F[4,4],F[2,2]+F[3,4]}
+F[2,3]:=MIN(F[2,2]+F[3,3])=2;
+F[1,2]:=5; F[2,3]:=2; F[3,4]:=5;
+F[1,3]:=6
+F[2,4]:=6;
+F[1,4]:=
+
+F[I,I]:=0;
+F[I,J]:=MIN{F[I,K]+F[K+1,J]}
+F[1,1]=F[2,2]=F[3,3]=F[4,4]=0;
+F[1,2]=5; F[2,3]=2; F[3,4]=5;
+F[1,3]=6; F[2,4]:=6;
+F[1,3]:=6+2=8; F[2,4]:=6+2=8;
+F[1,4]:=18/20
+
+
+1 2 3 4
+3 3 4
+6 4
+10
+
+i:=3;
+j:=1;
+1 to 4;
+k:=1 to 4;
+f[1,1]+f[2,4]
+f[1,2]+f[3,4];
+f[1,3]+f[4,4];
+}
+
+{
+Ç°Ðò±éÀú ¸ù×óÓÒ
+ÖÐÐò±éÀú ×ó¸ùÓÒ
+ºóÐø±éÀú ×óÓÒ¸ù
+}
+
+{
+1 2 3 4 5
+5 5 10
+1 N 1 N 1 N 1 N 1 N
+1 N 1 N 1 N 1 N 1 N
+1 N 1 N 1 N 1 N 1 N
+1 N 1 N 1 N 1 N 1 N
+1 N 1 N 1 N 1 N 1 N
+
+
+}
+
+Í¼ÂÛ
+×îÐ¡Éú³ÉÊ÷
+   prim kruskal
+´ÎÐ¡Éú³ÉÊ÷
+×î¶ÌÂ·
+   dijkstra 
+   floyed
+   bellman-ford
+   spfa
+´Î¶ÌÂ·
+dfs±éÀú
+bfs±éÀú
+ÍØÆËÅÅÐò
+AOV AOE
+¡ï²î·ÖÔ¼ÊøÏµÍ³
+Å·À­»ØÂ·
+ÇóÈõÁ¬Í¨·ÖÁ¿ 
+¡ïÇóÇ¿Á¬Í¨·ÖÁ¿ 
+
+
+cost
+1 maxint
+2 8
+3 maxint
+4 10
+5 maxint
+used
+1 
+2
+3
+4
+5
+minstreet
+1
+2 8
+3
+4
+5
+
+var -----------
+begin ¶ÁÈëÁÚ½Ó¾ØÕómap£»
+      ³õÊ¼»¯£»
+      used[1]:=false;
+      ans:=0;
+      for i:=1 to n do
+          if map[1,i]=0
+             then cost[i]:=maxlongint
+             else cost[i]:=map[1,i];
+      for ii:=1 to n-1 do
+          begin min:=maxlongint;
+                for i:=1 to n do
+                    if used[i] and(cost[i]<min)
+                       then begin min:=cost[i];
+                                  minj:=j;
+                            end;
+                ans:=ans+cost[i];
+                used[minj]:=false;
+                for i:=1 to n do
+                    if used[i] and (cost[minj]+map[minj,i]<cost[i])
+                       then cost[i]:=cost[minj]+map[minj£¬i];
+          end;
+       Êä³ö£»
+end.
